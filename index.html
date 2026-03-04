@@ -5,62 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🦞 Openclaw 宝可梦训练师营地</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-        
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: 'Press Start 2P', cursive;
-            background: #f8f8f8;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(180deg, #87CEEB 0%, #98FB98 100%);
             min-height: 100vh;
-            image-rendering: pixelated;
-        }
-        
-        /* 像素风背景 */
-        .bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(180deg, #87CEEB 0%, #87CEEB 60%, #7CFC00 60%, #228B22 100%);
-            z-index: -1;
-        }
-        
-        .grass {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            height: 40%;
-            background: 
-                repeating-linear-gradient(
-                    90deg,
-                    #228B22,
-                    #228B22 20px,
-                    #32CD32 20px,
-                    #32CD32 40px
-                );
-            z-index: -1;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
             padding: 20px;
         }
         
-        /* 标题 */
+        .container { max-width: 1000px; margin: 0 auto; }
+        
         h1 {
             text-align: center;
-            font-size: 1.5rem;
             color: #fff;
             text-shadow: 3px 3px 0 #000;
+            font-size: 2rem;
             margin-bottom: 30px;
-            animation: titleBounce 2s infinite;
+            animation: float 3s ease-in-out infinite;
         }
         
-        @keyframes titleBounce {
+        @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
@@ -70,97 +35,82 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 30px;
-            padding: 20px;
+            gap: 25px;
         }
         
         /* 精灵球卡片 */
         .pokemon-card {
-            background: #fff;
+            background: linear-gradient(145deg, #fff 0%, #f0f0f0 100%);
             border: 4px solid #333;
-            border-radius: 10px;
+            border-radius: 20px;
             padding: 15px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s;
-            width: 160px;
-            box-shadow: 4px 4px 0 #000;
+            width: 150px;
+            box-shadow: 0 8px 0 #1a1a1a;
         }
         
         .pokemon-card:hover {
             transform: translateY(-10px);
-            box-shadow: 6px 6px 0 #000;
+            box-shadow: 0 15px 0 #1a1a1a;
         }
         
         .pokemon-card.working {
             border-color: #4CAF50;
-            animation: working 1s infinite;
         }
         
         .pokemon-card.idle {
             border-color: #FF9800;
         }
         
-        @keyframes working {
-            0%, 100% { box-shadow: 4px 4px 0 #4CAF50; }
-            50% { box-shadow: 6px 8px 0 #4CAF50; }
-        }
-        
-        /* 精灵形象 */
+        /* 精灵图片 */
         .sprite {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             margin: 0 auto 10px;
-            font-size: 3.5rem;
-            animation: idle 2s infinite;
+            image-rendering: pixelated;
+            animation: idleBounce 2s ease-in-out infinite;
         }
         
         .working .sprite {
-            animation: battle 0.5s infinite;
+            animation: workingBounce 0.5s ease-in-out infinite;
         }
         
-        @keyframes idle {
+        @keyframes idleBounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-3px); }
+            50% { transform: translateY(-5px); }
         }
         
-        @keyframes battle {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+        @keyframes workingBounce {
+            0%, 100% { transform: scale(1) translateY(0); }
+            50% { transform: scale(1.05) translateY(-8px); }
         }
         
         /* 名字 */
         .name {
-            font-size: 0.7rem;
+            font-weight: bold;
             color: #333;
             margin-bottom: 5px;
-            text-shadow: 1px 1px 0 #fff;
         }
         
         /* 状态 */
         .status {
-            font-size: 0.5rem;
-            padding: 3px 8px;
-            border-radius: 5px;
+            font-size: 0.8rem;
+            padding: 3px 10px;
+            border-radius: 10px;
             display: inline-block;
         }
         
-        .status.working {
-            background: #4CAF50;
-            color: #fff;
-        }
-        
-        .status.idle {
-            background: #FF9800;
-            color: #fff;
-        }
+        .status.working { background: #4CAF50; color: #fff; }
+        .status.idle { background: #FF9800; color: #fff; }
         
         /* HP条 */
         .hp-bar {
             width: 100%;
-            height: 8px;
-            background: #ccc;
-            border-radius: 4px;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
             margin-top: 8px;
             border: 2px solid #333;
             overflow: hidden;
@@ -168,39 +118,29 @@
         
         .hp-fill {
             height: 100%;
-            background: #4CAF50;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
             transition: width 0.5s;
         }
         
         /* 二级页面 */
-        .detail-page {
-            display: none;
-        }
-        
-        .detail-page.active {
-            display: block;
-        }
+        .detail-page { display: none; }
+        .detail-page.active { display: block; }
         
         .back-btn {
             background: #FF6B6B;
             color: #fff;
             border: 3px solid #333;
             padding: 10px 20px;
-            font-family: inherit;
-            font-size: 0.6rem;
+            border-radius: 15px;
+            font-size: 1rem;
             cursor: pointer;
-            border-radius: 5px;
-            box-shadow: 3px 3px 0 #000;
+            box-shadow: 0 4px 0 #1a1a1a;
             margin-bottom: 20px;
         }
         
-        .back-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 5px 5px 0 #000;
-        }
+        .back-btn:hover { transform: translateY(-2px); }
         
         .detail-title {
-            font-size: 1.2rem;
             color: #fff;
             text-shadow: 2px 2px 0 #000;
             margin-bottom: 20px;
@@ -211,129 +151,90 @@
         .file-list {
             background: #fff;
             border: 4px solid #333;
-            border-radius: 10px;
+            border-radius: 15px;
             padding: 15px;
-            box-shadow: 4px 4px 0 #000;
+            box-shadow: 0 8px 0 #1a1a1a;
         }
         
         .file-item {
+            padding: 12px;
+            border-bottom: 2px dashed #ddd;
+            cursor: pointer;
             display: flex;
             align-items: center;
-            padding: 10px;
-            border-bottom: 2px dashed #ccc;
-            cursor: pointer;
+            gap: 10px;
             transition: background 0.3s;
         }
         
-        .file-item:hover {
-            background: #f0f0f0;
-        }
+        .file-item:hover { background: #f5f5f5; }
+        .file-item:last-child { border-bottom: none; }
         
-        .file-item:last-child {
-            border-bottom: none;
-        }
-        
-        .file-icon {
-            font-size: 1.5rem;
-            margin-right: 15px;
-        }
-        
-        .file-name {
-            font-size: 0.6rem;
-            color: #333;
-        }
-        
-        /* 页脚 */
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 0.5rem;
-            color: #fff;
-            text-shadow: 1px 1px 0 #000;
-        }
+        .file-icon { font-size: 1.5rem; }
+        .file-name { color: #333; }
     </style>
 </head>
 <body>
-    <div class="bg"></div>
-    <div class="grass"></div>
-    
     <div class="container">
         <!-- 首页 -->
         <div class="home-page" id="homePage">
-            <h1>🦞 Openclaw 训练师营地</h1>
+            <h1>🦞 Openclaw 宝可梦训练师营地</h1>
             
             <div class="field">
-                <!-- 小智（虾总） -->
-                <div class="pokemon-card working">
-                    <div class="sprite">🦞</div>
-                    <div class="name">🦞 虾总</div>
-                    <div class="status working">工作中</div>
-                    <div class="hp-bar"><div class="hp-fill" style="width: 80%"></div></div>
-                </div>
-                
-                <!-- 眠心诊所 -->
+                <!-- 妙蛙种子 - 眠心 -->
                 <div class="pokemon-card working" onclick="showDetail('content-ops')">
-                    <div class="sprite">🏥</div>
+                    <img src="p1.png" class="sprite" alt="妙蛙种子">
                     <div class="name">🏥 眠心</div>
                     <div class="status working">工作中</div>
                     <div class="hp-bar"><div class="hp-fill" style="width: 90%"></div></div>
                 </div>
                 
-                <!-- 氢美健康 -->
+                <!-- 小火龙 - 氢美 -->
                 <div class="pokemon-card idle" onclick="showDetail('ecommerce')">
-                    <div class="sprite">🛒</div>
+                    <img src="p2.png" class="sprite" alt="小火龙">
                     <div class="name">🛒 氢美</div>
                     <div class="status idle">学习中</div>
                     <div class="hp-bar"><div class="hp-fill" style="width: 40%"></div></div>
                 </div>
                 
-                <!-- 弹幕游戏 -->
+                <!-- 杰尼龟 - 弹幕 -->
                 <div class="pokemon-card working" onclick="showDetail('game-dev')">
-                    <div class="sprite">🎮</div>
+                    <img src="p3.png" class="sprite" alt="杰尼龟">
                     <div class="name">🎮 弹幕</div>
                     <div class="status working">工作中</div>
                     <div class="hp-bar"><div class="hp-fill" style="width: 75%"></div></div>
                 </div>
                 
-                <!-- 游戏广告 -->
+                <!-- 皮卡丘 - 广告 -->
                 <div class="pokemon-card idle" onclick="showDetail('ad-creative')">
-                    <div class="sprite">🎬</div>
+                    <img src="p4.png" class="sprite" alt="皮卡丘">
                     <div class="name">🎬 广告</div>
                     <div class="status idle">待命中</div>
                     <div class="hp-bar"><div class="hp-fill" style="width: 30%"></div></div>
                 </div>
                 
-                <!-- 美术素材 -->
+                <!-- 波波 - 美术 -->
                 <div class="pokemon-card working" onclick="showDetail('art-gen')">
-                    <div class="sprite">🎨</div>
+                    <img src="p5.png" class="sprite" alt="波波">
                     <div class="name">🎨 美术</div>
                     <div class="status working">工作中</div>
                     <div class="hp-bar"><div class="hp-fill" style="width: 85%"></div></div>
                 </div>
                 
-                <!-- 技术支持 -->
+                <!-- 卡拉卡拉 - 技术 -->
                 <div class="pokemon-card idle" onclick="showDetail('tech-support')">
-                    <div class="sprite">🔧</div>
+                    <img src="p6.png" class="sprite" alt="卡拉卡拉">
                     <div class="name">🔧 技术</div>
                     <div class="status idle">待命中</div>
                     <div class="hp-bar"><div class="hp-fill" style="width: 50%"></div></div>
                 </div>
-            </div>
-            
-            <div class="footer">
-                <p>💡 点击精灵查看详细工作成果</p>
             </div>
         </div>
         
         <!-- 详情页 -->
         <div class="detail-page" id="detailPage">
             <button class="back-btn" onclick="goBack()">← 返回营地</button>
-            
             <h2 class="detail-title" id="detailTitle">项目详情</h2>
-            
-            <div class="file-list" id="fileList">
-                <!-- 文件列表 -->
-            </div>
+            <div class="file-list" id="fileList"></div>
         </div>
     </div>
     
@@ -345,8 +246,7 @@
                     {name: 'article-41.md - 失眠自救指南', icon: '📄'},
                     {name: 'article-42.md - 为什么选择眠心', icon: '📄'},
                     {name: 'article-43.md - 心理治疗Q&A', icon: '📄'},
-                    {name: 'company-info.md - 公司信息', icon: '📋'},
-                    {name: 'progress.md - 进度报告', icon: '📊'}
+                    {name: 'company-info.md - 公司信息', icon: '📋'}
                 ]
             },
             'ecommerce': {
@@ -354,8 +254,7 @@
                 files: [
                     {name: 'product-detail.md - 产品详情', icon: '📄'},
                     {name: 'customer-cases.md - 用户案例', icon: '📄'},
-                    {name: 'index.html - 产品页', icon: '🌐'},
-                    {name: 'progress.md - 进度报告', icon: '📊'}
+                    {name: 'index.html - 产品页', icon: '🌐'}
                 ]
             },
             'game-dev': {
@@ -363,8 +262,7 @@
                 files: [
                     {name: 'server/game.go - 游戏服务器', icon: '💻'},
                     {name: 'server/battle.go - 战斗逻辑', icon: '⚔️'},
-                    {name: 'tech-plan.md - 技术方案', icon: '📋'},
-                    {name: 'progress.md - 进度报告', icon: '📊'}
+                    {name: 'tech-plan.md - 技术方案', icon: '📋'}
                 ]
             },
             'ad-creative': {
@@ -372,8 +270,7 @@
                 files: [
                     {name: 'scripts-v17.md - 买量脚本', icon: '📝'},
                     {name: 'case-analysis.md - 素材分析', icon: '📊'},
-                    {name: 'creative-template.md - 创意模板', icon: '🎨'},
-                    {name: 'progress.md - 进度报告', icon: '📊'}
+                    {name: 'creative-template.md - 创意模板', icon: '🎨'}
                 ]
             },
             'art-gen': {
@@ -381,8 +278,7 @@
                 files: [
                     {name: 'ui-mockup.md - UI设计稿', icon: '🎨'},
                     {name: 'icon-set.md - 图标集', icon: '🖼️'},
-                    {name: 'style-guide.md - 风格指南', icon: '📋'},
-                    {name: 'progress.md - 进度报告', icon: '📊'}
+                    {name: 'style-guide.md - 风格指南', icon: '📋'}
                 ]
             },
             'tech-support': {
@@ -390,8 +286,7 @@
                 files: [
                     {name: 'trial-game/ - 试玩HTML', icon: '🎮'},
                     {name: 'battle.js - 战斗系统', icon: '⚔️'},
-                    {name: 'deploy.sh - 部署脚本', icon: '🚀'},
-                    {name: 'progress.md - 进度报告', icon: '📊'}
+                    {name: 'deploy.sh - 部署脚本', icon: '🚀'}
                 ]
             }
         };
@@ -401,14 +296,9 @@
             document.getElementById('homePage').style.display = 'none';
             document.getElementById('detailPage').classList.add('active');
             document.getElementById('detailTitle').textContent = data.name + ' 的工作成果';
-            
-            const list = document.getElementById('fileList');
-            list.innerHTML = data.files.map(f => `
-                <div class="file-item">
-                    <span class="file-icon">${f.icon}</span>
-                    <span class="file-name">${f.name}</span>
-                </div>
-            `).join('');
+            document.getElementById('fileList').innerHTML = data.files.map(f => 
+                '<div class="file-item"><span class="file-icon">'+f.icon+'</span><span class="file-name">'+f.name+'</span></div>'
+            ).join('');
         }
         
         function goBack() {
