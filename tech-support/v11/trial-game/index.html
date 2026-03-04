@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>万龙觉醒 - 试玩体验</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="loading-screen">
+            <div class="loading-content">
+                <h1>万龙觉醒</h1>
+                <p>ARPG + 模拟经营</p>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <p class="loading-text">加载中...</p>
+            </div>
+        </div>
+        
+        <div id="main-menu" class="screen hidden">
+            <div class="menu-content">
+                <h1 class="game-title">万龙觉醒</h1>
+                <p class="game-subtitle">Call of Dragons</p>
+                <button id="start-btn" class="menu-btn">开始试玩</button>
+                <button class="menu-btn secondary">继续游戏</button>
+                <button class="menu-btn secondary">设置</button>
+            </div>
+        </div>
+        
+        <div id="game-screen" class="screen hidden">
+            <div id="game-ui">
+                <div class="top-bar">
+                    <div class="resource">
+                        <span class="icon">💰</span>
+                        <span id="gold">1000</span>
+                    </div>
+                    <div class="resource">
+                        <span class="icon">💎</span>
+                        <span id="gems">50</span>
+                    </div>
+                    <div class="resource">
+                        <span class="icon">⚔️</span>
+                        <span id="power">100</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="game-viewport">
+                <canvas id="game-canvas"></canvas>
+            </div>
+            
+            <div id="controls">
+                <div class="joystick-area" id="joystick">
+                    <div class="joystick-knob"></div>
+                </div>
+                <div class="action-buttons">
+                    <button class="action-btn skill" id="skill-1">🔥</button>
+                    <button class="action-btn skill" id="skill-2">❄️</button>
+                    <button class="action-btn attack" id="attack-btn">普攻</button>
+                </div>
+            </div>
+            
+            <div id="minimap">
+                <canvas id="minimap-canvas"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div id="conversion-modal" class="hidden">
+        <div class="modal-content">
+            <h2>🎮 精彩体验尽在游戏中！</h2>
+            <p>立即下载开始你的龙族冒险</p>
+            <button class="download-btn">立即下载</button>
+            <button class="close-btn">关闭</button>
+        </div>
+    </div>
+    
+    <script src="js/game.js"></script>
+</body>
+</html>

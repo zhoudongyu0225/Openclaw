@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hydromg Capsules - Boost Energy, Improve Sleep</title>
+    <meta name="description" content="China Hydrogen Research Institute formula. Hydrogen + Magnesium dual formula. Japanese imported raw materials. Boost energy, improve sleep quality.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* Header */
+        header { background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: fixed; width: 100%; top: 0; z-index: 100; }
+        .header-content { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; }
+        .logo { font-size: 24px; font-weight: bold; color: #0066cc; }
+        .nav { display: flex; gap: 30px; }
+        .nav a { color: #333; text-decoration: none; transition: color 0.3s; }
+        .nav a:hover { color: #0066cc; }
+        
+        /* Hero */
+        .hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 150px 0 100px; text-align: center; }
+        .hero h1 { font-size: 48px; margin-bottom: 20px; }
+        .hero p { font-size: 20px; opacity: 0.9; margin-bottom: 30px; }
+        .cta-button { display: inline-block; background: #ff6b35; color: white; padding: 15px 40px; border-radius: 50px; text-decoration: none; font-size: 18px; font-weight: bold; transition: transform 0.3s; }
+        .cta-button:hover { transform: scale(1.05); }
+        
+        /* Benefits */
+        .benefits { padding: 80px 0; background: #f8f9fa; }
+        .benefits h2 { text-align: center; font-size: 36px; margin-bottom: 50px; }
+        .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .benefit-card { background: white; padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .benefit-icon { font-size: 48px; margin-bottom: 20px; }
+        .benefit-card h3 { font-size: 24px; margin-bottom: 15px; color: #0066cc; }
+        
+        /* Product */
+        .product { padding: 80px 0; }
+        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .product-image { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); height: 400px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 120px; }
+        .product-info h2 { font-size: 36px; margin-bottom: 20px; }
+        .price { font-size: 48px; color: #ff6b35; font-weight: bold; margin: 20px 0; }
+        .price span { font-size: 20px; color: #666; }
+        .features { list-style: none; margin: 30px 0; }
+        .features li { padding: 10px 0; border-bottom: 1px solid #eee; }
+        .features li::before { content: "✓"; color: #0066cc; margin-right: 10px; }
+        
+        /* Testimonials */
+        .testimonials { padding: 80px 0; background: #f8f9fa; }
+        .testimonials h2 { text-align: center; font-size: 36px; margin-bottom: 50px; }
+        .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .testimonial-card { background: white; padding: 30px; border-radius: 20px; }
+        .testimonial-text { font-style: italic; color: #666; margin-bottom: 20px; }
+        .testimonial-author { font-weight: bold; color: #0066cc; }
+        
+        /* Footer */
+        footer { background: #333; color: white; padding: 50px 0; text-align: center; }
+        footer p { opacity: 0.7; }
+        
+        /* Shipping */
+        .shipping { padding: 60px 0; background: #fff; }
+        .shipping-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; text-align: center; }
+        .shipping-item h3 { margin: 15px 0; }
+        
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .product-grid { grid-template-columns: 1fr; }
+            .nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">NIDONG LI</div>
+            <nav class="nav">
+                <a href="#benefits">Benefits</a>
+                <a href="#product">Product</a>
+                <a href="#testimonials">Reviews</a>
+                <a href="#shipping">Shipping</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Hydromg Capsules</h1>
+            <p>China Hydrogen Research Institute Formula | Hydrogen + Magnesium | Japanese Imported</p>
+            <p>Boost Energy · Improve Sleep · Enhance Immunity</p>
+            <a href="#product" class="cta-button">Buy Now</a>
+        </div>
+    </section>
+
+    <section class="benefits" id="benefits">
+        <div class="container">
+            <h2>Core Benefits</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">⚡</div>
+                    <h3>Boost Energy</h3>
+                    <p>Hydrogen molecules activate cellular energy metabolism, quickly replenish physical energy, eliminate fatigue</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">😴</div>
+                    <h3>Improve Sleep</h3>
+                    <p>Magnesium regulates the nervous system, helps relax body and mind, improves sleep quality</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🛡️</div>
+                    <h3>Enhance Immunity</h3>
+                    <p>Hydrogen molecules fight oxidation, reduce free radicals, strengthen body resistance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="product" id="product">
+        <div class="container">
+            <div class="product-grid">
+                <div class="product-image">💊</div>
+                <div class="product-info">
+                    <h2>Hydromg Capsules · Premium</h2>
+                    <p>Developed by China Hydrogen Research Institute. Using Japanese imported raw materials. Advanced nano technology ensures maximum absorption of active ingredients.</p>
+                    <ul class="features">
+                        <li>Hydrogen + Magnesium dual formula</li>
+                        <li>Japanese imported raw materials</li>
+                        <li>Nano technology - 3x absorption rate</li>
+                        <li>No hormones, no side effects</li>
+                        <li>30-day money-back guarantee</li>
+                    </ul>
+                    <div class="price">$428 <span>/ box (30-day supply)</span></div>
+                    <a href="#" class="cta-button">Order Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2>Customer Reviews</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"After 2 weeks, I feel more energetic and sleep much better at night!"</p>
+                    <p class="testimonial-author">Mr. Zhang · Entrepreneur</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Work stress was causing insomnia. Now I sleep much better. Will repurchase!"</p>
+                    <p class="testimonial-author">Ms. Li · Designer</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"My parents love it. Their sleep quality has improved significantly."</p>
+                    <p class="testimonial-author">Mr. Wang · Engineer</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="shipping" id="shipping">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 40px;">Global Shipping</h2>
+            <div class="shipping-grid">
+                <div class="shipping-item">
+                    <div style="font-size: 48px;">✈️</div>
+                    <h3>Fast Shipping</h3>
+                    <p>7-15 days worldwide delivery</p>
+                </div>
+                <div class="shipping-item">
+                    <div style="font-size: 48px;">🏭</div>
+                    <h3>Quality Guaranteed</h3>
+                    <p> GMP certified factory</p>
+                </div>
+                <div class="shipping-item">
+                    <div style="font-size: 48px;">🔒</div>
+                    <h3>Secure Payment</h3>
+                    <p>PayPal, Stripe, Credit Card</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 NIDONG LI All Rights Reserved</p>
+            <p>Strategic Partner of China Hydrogen Research Institute</p>
+            <p>Disclaimer: This product is a dietary supplement. Not intended to diagnose, treat, cure, or prevent any disease.</p>
+        </div>
+    </footer>
+</body>
+</html>
