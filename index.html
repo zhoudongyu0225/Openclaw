@@ -3,308 +3,359 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🦞 Openclaw 宝可梦训练师营地</title>
+    <title>Openclaw 工作台</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            background: linear-gradient(180deg, #87CEEB 0%, #98FB98 100%);
-            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
             padding: 20px;
         }
         
-        .container { max-width: 1000px; margin: 0 auto; }
-        
-        h1 {
-            text-align: center;
-            color: #fff;
-            text-shadow: 3px 3px 0 #000;
-            font-size: 2rem;
-            margin-bottom: 30px;
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        /* 训练场 */
-        .field {
+        .header {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 25px;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
         }
         
-        /* 精灵球卡片 */
-        .pokemon-card {
-            background: linear-gradient(145deg, #fff 0%, #f0f0f0 100%);
-            border: 4px solid #333;
-            border-radius: 20px;
-            padding: 15px;
-            text-align: center;
+        .header h1 {
+            font-size: 24px;
+            color: #333;
+        }
+        
+        .header .time {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* 表格形式 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             cursor: pointer;
             transition: all 0.3s;
-            width: 150px;
-            box-shadow: 0 8px 0 #1a1a1a;
+            border: 2px solid transparent;
         }
         
-        .pokemon-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 0 #1a1a1a;
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
         }
         
-        .pokemon-card.working {
+        .card.working {
             border-color: #4CAF50;
         }
         
-        .pokemon-card.idle {
+        .card.idle {
             border-color: #FF9800;
         }
         
-        /* 精灵图片 */
-        .sprite {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 10px;
-            image-rendering: pixelated;
-            animation: idleBounce 2s ease-in-out infinite;
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
         }
         
-        .working .sprite {
-            animation: workingBounce 0.5s ease-in-out infinite;
-        }
-        
-        @keyframes idleBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-        
-        @keyframes workingBounce {
-            0%, 100% { transform: scale(1) translateY(0); }
-            50% { transform: scale(1.05) translateY(-8px); }
-        }
-        
-        /* 名字 */
-        .name {
-            font-weight: bold;
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
             color: #333;
-            margin-bottom: 5px;
         }
         
-        /* 状态 */
         .status {
-            font-size: 0.8rem;
-            padding: 3px 10px;
-            border-radius: 10px;
-            display: inline-block;
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 12px;
         }
         
-        .status.working { background: #4CAF50; color: #fff; }
-        .status.idle { background: #FF9800; color: #fff; }
+        .status.working {
+            background: #E8F5E9;
+            color: #4CAF50;
+        }
         
-        /* HP条 */
-        .hp-bar {
-            width: 100%;
-            height: 10px;
-            background: #e0e0e0;
-            border-radius: 5px;
-            margin-top: 8px;
-            border: 2px solid #333;
+        .status.idle {
+            background: #FFF3E0;
+            color: #FF9800;
+        }
+        
+        .card-desc {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .card-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .stat-value {
+            color: #333;
+            font-weight: 600;
+        }
+        
+        /* 详情页 */
+        .detail {
+            display: none;
+        }
+        
+        .detail.active {
+            display: block;
+        }
+        
+        .detail-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .back-btn {
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .back-btn:hover {
+            background: #555;
+        }
+        
+        .file-list {
+            background: #fff;
+            border-radius: 8px;
             overflow: hidden;
         }
         
-        .hp-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #4CAF50, #8BC34A);
-            transition: width 0.5s;
-        }
-        
-        /* 二级页面 */
-        .detail-page { display: none; }
-        .detail-page.active { display: block; }
-        
-        .back-btn {
-            background: #FF6B6B;
-            color: #fff;
-            border: 3px solid #333;
-            padding: 10px 20px;
-            border-radius: 15px;
-            font-size: 1rem;
-            cursor: pointer;
-            box-shadow: 0 4px 0 #1a1a1a;
-            margin-bottom: 20px;
-        }
-        
-        .back-btn:hover { transform: translateY(-2px); }
-        
-        .detail-title {
-            color: #fff;
-            text-shadow: 2px 2px 0 #000;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        /* 文件列表 */
-        .file-list {
-            background: #fff;
-            border: 4px solid #333;
-            border-radius: 15px;
-            padding: 15px;
-            box-shadow: 0 8px 0 #1a1a1a;
-        }
-        
         .file-item {
-            padding: 12px;
-            border-bottom: 2px dashed #ddd;
-            cursor: pointer;
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            cursor: pointer;
             transition: background 0.3s;
         }
         
-        .file-item:hover { background: #f5f5f5; }
-        .file-item:last-child { border-bottom: none; }
+        .file-item:hover {
+            background: #f9f9f9;
+        }
         
-        .file-icon { font-size: 1.5rem; }
-        .file-name { color: #333; }
+        .file-item:last-child {
+            border-bottom: none;
+        }
+        
+        .file-icon {
+            font-size: 20px;
+        }
+        
+        .file-info {
+            flex: 1;
+        }
+        
+        .file-name {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 2px;
+        }
+        
+        .file-meta {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- 首页 -->
-        <div class="home-page" id="homePage">
-            <h1>🦞 Openclaw 宝可梦训练师营地</h1>
-            
-            <div class="field">
-                <!-- 妙蛙种子 - 眠心 -->
-                <div class="pokemon-card working" onclick="showDetail('content-ops')">
-                    <img src="p1.png" class="sprite" alt="妙蛙种子">
-                    <div class="name">🏥 眠心</div>
-                    <div class="status working">工作中</div>
-                    <div class="hp-bar"><div class="hp-fill" style="width: 90%"></div></div>
-                </div>
-                
-                <!-- 小火龙 - 氢美 -->
-                <div class="pokemon-card idle" onclick="showDetail('ecommerce')">
-                    <img src="p2.png" class="sprite" alt="小火龙">
-                    <div class="name">🛒 氢美</div>
-                    <div class="status idle">学习中</div>
-                    <div class="hp-bar"><div class="hp-fill" style="width: 40%"></div></div>
-                </div>
-                
-                <!-- 杰尼龟 - 弹幕 -->
-                <div class="pokemon-card working" onclick="showDetail('game-dev')">
-                    <img src="p3.png" class="sprite" alt="杰尼龟">
-                    <div class="name">🎮 弹幕</div>
-                    <div class="status working">工作中</div>
-                    <div class="hp-bar"><div class="hp-fill" style="width: 75%"></div></div>
-                </div>
-                
-                <!-- 皮卡丘 - 广告 -->
-                <div class="pokemon-card idle" onclick="showDetail('ad-creative')">
-                    <img src="p4.png" class="sprite" alt="皮卡丘">
-                    <div class="name">🎬 广告</div>
-                    <div class="status idle">待命中</div>
-                    <div class="hp-bar"><div class="hp-fill" style="width: 30%"></div></div>
-                </div>
-                
-                <!-- 波波 - 美术 -->
-                <div class="pokemon-card working" onclick="showDetail('art-gen')">
-                    <img src="p5.png" class="sprite" alt="波波">
-                    <div class="name">🎨 美术</div>
-                    <div class="status working">工作中</div>
-                    <div class="hp-bar"><div class="hp-fill" style="width: 85%"></div></div>
-                </div>
-                
-                <!-- 卡拉卡拉 - 技术 -->
-                <div class="pokemon-card idle" onclick="showDetail('tech-support')">
-                    <img src="p6.png" class="sprite" alt="卡拉卡拉">
-                    <div class="name">🔧 技术</div>
-                    <div class="status idle">待命中</div>
-                    <div class="hp-bar"><div class="hp-fill" style="width: 50%"></div></div>
-                </div>
-            </div>
+    <div class="header">
+        <h1>Openclaw 工作台</h1>
+        <div class="time" id="time"></div>
+    </div>
+    
+    <div class="grid" id="grid">
+        <!-- 卡片由JS生成 -->
+    </div>
+    
+    <div class="detail" id="detail">
+        <div class="detail-header">
+            <button class="back-btn" onclick="showHome()">← 返回</button>
+            <h2 id="detailTitle"></h2>
         </div>
-        
-        <!-- 详情页 -->
-        <div class="detail-page" id="detailPage">
-            <button class="back-btn" onclick="goBack()">← 返回营地</button>
-            <h2 class="detail-title" id="detailTitle">项目详情</h2>
-            <div class="file-list" id="fileList"></div>
-        </div>
+        <div class="file-list" id="fileList"></div>
     </div>
     
     <script>
-        const projectData = {
-            'content-ops': {
+        const projects = [
+            {
+                id: 'content-ops',
                 name: '🏥 眠心诊所',
-                files: [
-                    {name: 'article-41.md - 失眠自救指南', icon: '📄'},
-                    {name: 'article-42.md - 为什么选择眠心', icon: '📄'},
-                    {name: 'article-43.md - 心理治疗Q&A', icon: '📄'},
-                    {name: 'company-info.md - 公司信息', icon: '📋'}
-                ]
+                desc: '内容运营：公众号文章、抖音脚本、小红书笔记',
+                status: 'working',
+                progress: 90,
+                files: 54,
+                task: '撰写心理治疗科普文章'
             },
-            'ecommerce': {
+            {
+                id: 'ecommerce',
                 name: '🛒 氢美健康',
-                files: [
-                    {name: 'product-detail.md - 产品详情', icon: '📄'},
-                    {name: 'customer-cases.md - 用户案例', icon: '📄'},
-                    {name: 'index.html - 产品页', icon: '🌐'}
-                ]
+                desc: '电商运营：产品页、定价策略、用户案例',
+                status: 'idle',
+                progress: 40,
+                files: 26,
+                task: '完善产品页内容'
             },
-            'game-dev': {
+            {
+                id: 'game-dev',
                 name: '🎮 弹幕游戏',
-                files: [
-                    {name: 'server/game.go - 游戏服务器', icon: '💻'},
-                    {name: 'server/battle.go - 战斗逻辑', icon: '⚔️'},
-                    {name: 'tech-plan.md - 技术方案', icon: '📋'}
-                ]
+                desc: '游戏开发：Go服务器、Protobuf协议、数据库设计',
+                status: 'working',
+                progress: 75,
+                files: 42,
+                task: '开发战斗系统'
             },
-            'ad-creative': {
+            {
+                id: 'ad-creative',
                 name: '🎬 游戏广告',
-                files: [
-                    {name: 'scripts-v17.md - 买量脚本', icon: '📝'},
-                    {name: 'case-analysis.md - 素材分析', icon: '📊'},
-                    {name: 'creative-template.md - 创意模板', icon: '🎨'}
-                ]
+                desc: '创意策划：买量脚本、爆款分析、广大大调研',
+                status: 'idle',
+                progress: 30,
+                files: 26,
+                task: '分析竞品素材'
             },
-            'art-gen': {
+            {
+                id: 'art-gen',
                 name: '🎨 美术素材',
-                files: [
-                    {name: 'ui-mockup.md - UI设计稿', icon: '🎨'},
-                    {name: 'icon-set.md - 图标集', icon: '🖼️'},
-                    {name: 'style-guide.md - 风格指南', icon: '📋'}
-                ]
+                desc: 'AI生成：提示词库、风格指南、UI设计',
+                status: 'working',
+                progress: 85,
+                files: 13,
+                task: '优化AI提示词'
             },
-            'tech-support': {
+            {
+                id: 'tech-support',
                 name: '🔧 技术支持',
-                files: [
-                    {name: 'trial-game/ - 试玩HTML', icon: '🎮'},
-                    {name: 'battle.js - 战斗系统', icon: '⚔️'},
-                    {name: 'deploy.sh - 部署脚本', icon: '🚀'}
-                ]
+                desc: '工具开发：试玩HTML、部署脚本、性能优化',
+                status: 'idle',
+                progress: 50,
+                files: 8,
+                task: '优化加载速度'
             }
+        ];
+        
+        const fileData = {
+            'content-ops': [
+                {name: 'company-info.md', meta: '公司调研 - 成都高新眠心诊所', icon: '📋'},
+                {name: 'article-41.md', meta: '失眠自救指南 - 1500字', icon: '📄'},
+                {name: 'article-42.md', meta: '为什么选择眠心 - 1200字', icon: '📄'},
+                {name: 'article-43.md', meta: '心理治疗Q&A - 800字', icon: '📄'},
+                {name: 'progress.md', meta: '进度报告', icon: '📊'}
+            ],
+            'ecommerce': [
+                {name: 'product-detail.md', meta: '产品详情页 - 氢镁胶囊', icon: '📄'},
+                {name: 'customer-cases.md', meta: '用户案例 - 3个真实故事', icon: '📄'},
+                {name: 'index.html', meta: '产品页源码', icon: '🌐'}
+            ],
+            'game-dev': [
+                {name: 'server/game.go', meta: '游戏服务器主程序 - 200行', icon: '💻'},
+                {name: 'server/battle.go', meta: '战斗逻辑 - 150行', icon: '⚔️'},
+                {name: 'server/matchmaking.go', meta: '匹配系统 - 100行', icon: '🔗'},
+                {name: 'tech-plan.md', meta: '技术方案文档', icon: '📋'}
+            ],
+            'ad-creative': [
+                {name: 'scripts-v17.md', meta: '买量脚本 - 5个完整版本', icon: '📝'},
+                {name: 'case-analysis.md', meta: '爆款素材分析 - 10个案例', icon: '📊'},
+                {name: 'creative-template.md', meta: '创意模板库', icon: '🎨'}
+            ],
+            'art-gen': [
+                {name: 'ui-mockup.md', meta: 'UI设计稿 - 10个界面', icon: '🎨'},
+                {name: 'icon-set.md', meta: '图标集 - 50+图标', icon: '🖼️'},
+                {name: 'style-guide.md', meta: '风格指南 - 颜色/字体/间距', icon: '📋'}
+            ],
+            'tech-support': [
+                {name: 'trial-game/', meta: '试玩HTML游戏 - 可运行', icon: '🎮'},
+                {name: 'battle.js', meta: '战斗系统 - 300行', icon: '⚔️'},
+                {name: 'deploy.sh', meta: '部署脚本 - 支持Vercel', icon: '🚀'}
+            ]
         };
         
-        function showDetail(key) {
-            const data = projectData[key];
-            document.getElementById('homePage').style.display = 'none';
-            document.getElementById('detailPage').classList.add('active');
-            document.getElementById('detailTitle').textContent = data.name + ' 的工作成果';
-            document.getElementById('fileList').innerHTML = data.files.map(f => 
-                '<div class="file-item"><span class="file-icon">'+f.icon+'</span><span class="file-name">'+f.name+'</span></div>'
-            ).join('');
+        function renderGrid() {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = projects.map(p => `
+                <div class="card ${p.status}" onclick="showDetail('${p.id}')">
+                    <div class="card-header">
+                        <span class="card-title">${p.name}</span>
+                        <span class="status ${p.status}">${p.status === 'working' ? '工作中' : '待命'}</span>
+                    </div>
+                    <div class="card-desc">${p.desc}</div>
+                    <div class="card-stats">
+                        <span>当前任务: <span class="stat-value">${p.task}</span></span>
+                        <span>进度: <span class="stat-value">${p.progress}%</span></span>
+                        <span>文件: <span class="stat-value">${p.files}</span></span>
+                    </div>
+                </div>
+            `).join('');
         }
         
-        function goBack() {
-            document.getElementById('homePage').style.display = 'block';
-            document.getElementById('detailPage').classList.remove('active');
+        function showDetail(id) {
+            const p = projects.find(x => x.id === id);
+            const files = fileData[id] || [];
+            
+            document.getElementById('grid').style.display = 'none';
+            document.getElementById('detail').classList.add('active');
+            document.getElementById('detailTitle').textContent = p.name + ' - 工作成果';
+            document.getElementById('fileList').innerHTML = files.map(f => `
+                <div class="file-item">
+                    <span class="file-icon">${f.icon}</span>
+                    <div class="file-info">
+                        <div class="file-name">${f.name}</div>
+                        <div class="file-meta">${f.meta}</div>
+                    </div>
+                </div>
+            `).join('');
         }
+        
+        function showHome() {
+            document.getElementById('grid').style.display = 'grid';
+            document.getElementById('detail').classList.remove('active');
+        }
+        
+        function updateTime() {
+            document.getElementById('time').textContent = new Date().toLocaleString('zh-CN');
+        }
+        
+        renderGrid();
+        updateTime();
+        setInterval(updateTime, 1000);
     </script>
 </body>
 </html>
