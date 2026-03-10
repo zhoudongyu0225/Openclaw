@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>逆动力 - 氢镁胶囊 | Hydrogen Magnesium Capsule</title>
+    <meta name="description" content="中国氢科学研究院成果 - 氢镁胶囊新一代健康长寿方案">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* Header */
+        header { background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
+        .logo { font-size: 28px; font-weight: bold; color: #00a8ff; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { text-decoration: none; color: #333; font-weight: 500; }
+        .nav-links a:hover { color: #00a8ff; }
+        
+        /* Hero */
+        .hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 80px 0; text-align: center; }
+        .hero h1 { font-size: 48px; margin-bottom: 20px; }
+        .hero p { font-size: 20px; opacity: 0.9; margin-bottom: 30px; }
+        .btn { display: inline-block; padding: 15px 40px; background: #ff6b6b; color: white; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 18px; transition: transform 0.3s; }
+        .btn:hover { transform: scale(1.05); }
+        
+        /* Product */
+        .product { padding: 80px 0; }
+        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .product-image { background: #f8f9fa; border-radius: 20px; padding: 40px; text-align: center; }
+        .product-image img { max-width: 100%; height: auto; }
+        .product-info h2 { font-size: 36px; margin-bottom: 20px; color: #00a8ff; }
+        .price { font-size: 32px; font-weight: bold; color: #ff6b6b; margin: 20px 0; }
+        .price .original { text-decoration: line-through; color: #999; font-size: 20px; margin-right: 10px; }
+        .features { list-style: none; margin: 20px 0; }
+        .features li { padding: 10px 0; border-bottom: 1px solid #eee; }
+        .features li::before { content: "✓"; color: #00a8ff; margin-right: 10px; font-weight: bold; }
+        
+        /* Benefits */
+        .benefits { background: #f8f9fa; padding: 80px 0; }
+        .benefits h2 { text-align: center; font-size: 36px; margin-bottom: 50px; }
+        .benefits-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+        .benefit-card { background: white; padding: 30px; border-radius: 15px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        .benefit-icon { font-size: 48px; margin-bottom: 15px; }
+        .benefit-card h3 { margin-bottom: 10px; color: #00a8ff; }
+        
+        /* Science */
+        .science { padding: 80px 0; }
+        .science h2 { text-align: center; font-size: 36px; margin-bottom: 50px; }
+        .science-content { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        .science-item { background: #f8f9fa; padding: 30px; border-radius: 15px; }
+        .science-item h3 { color: #00a8ff; margin-bottom: 15px; }
+        
+        /* Order Form */
+        .order { background: linear-gradient(135deg, #00a8ff 0%, #00d4ff 100%); padding: 80px 0; color: white; }
+        .order h2 { text-align: center; font-size: 36px; margin-bottom: 30px; }
+        .order-form { max-width: 600px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; color: #333; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+        .form-group input:focus { outline: none; border-color: #00a8ff; }
+        .quantity-selector { display: flex; align-items: center; gap: 15px; }
+        .quantity-btn { width: 40px; height: 40px; border: 1px solid #ddd; background: #f8f9fa; border-radius: 8px; font-size: 20px; cursor: pointer; }
+        .quantity-btn:hover { background: #00a8ff; color: white; }
+        .total-price { font-size: 24px; font-weight: bold; color: #ff6b6b; margin: 20px 0; }
+        .submit-btn { width: 100%; padding: 18px; background: #ff6b6b; color: white; border: none; border-radius: 50px; font-size: 18px; font-weight: bold; cursor: pointer; transition: transform 0.3s; }
+        .submit-btn:hover { transform: scale(1.02); }
+        
+        /* Shipping */
+        .shipping-options { display: flex; gap: 20px; margin-top: 10px; }
+        .shipping-option { flex: 1; padding: 15px; border: 2px solid #ddd; border-radius: 10px; text-align: center; cursor: pointer; }
+        .shipping-option.selected { border-color: #00a8ff; background: #e6f7ff; }
+        .shipping-option h4 { color: #00a8ff; margin-bottom: 5px; }
+        
+        /* CTA */
+        .cta { background: #f8f9fa; padding: 60px 0; text-align: center; }
+        
+        /* Footer */
+        footer { background: #333; color: white; padding: 40px 0; text-align: center; }
+        footer p { opacity: 0.7; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .product-grid, .science-content { grid-template-columns: 1fr; }
+            .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero h1 { font-size: 32px; }
+            .shipping-options { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">逆动力</div>
+                <div class="nav-links">
+                    <a href="#product">产品</a>
+                    <a href="#benefits">功效</a>
+                    <a href="#science">科学</a>
+                    <a href="#order">购买</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>氢镁胶囊</h1>
+            <p>中国氢科学研究院成果 | 新一代健康长寿方案</p>
+            <a href="#order" class="btn">立即购买</a>
+        </div>
+    </section>
+
+    <!-- 支付方式说明 -->
+    <section class="payment-methods" style="background: #f0f0f0; padding: 40px 0; text-align: center;">
+        <div class="container">
+            <h3>💳 支付方式</h3>
+            <p style="margin: 20px 0;">我们支持以下支付方式：</p>
+            <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+                <div style="padding: 20px;">
+                    <div style="font-size: 40px; margin-bottom: 10px;">💳</div>
+                    <strong>信用卡</strong>
+                    <p style="font-size: 12px; color: #666;">Visa, Mastercard, AMEX</p>
+                </div>
+                <div style="padding: 20px;">
+                    <div style="font-size: 40px; margin-bottom: 10px;">🅿️</div>
+                    <strong>PayPal</strong>
+                    <p style="font-size: 12px; color: #666;">安全支付</p>
+                </div>
+                <div style="padding: 20px;">
+                    <div style="font-size: 40px; margin-bottom: 10px;">📱</div>
+                    <strong>微信/支付宝</strong>
+                    <p style="font-size: 12px; color: #666;">中国大陆用户</p>
+                </div>
+            </div>
+            <p style="margin-top: 20px; font-size: 14px; color: #888;">* 点击"提交订单"后，我们会在24小时内联系您确认支付方式</p>
+        </div>
+    </section>
+
+    <section class="product" id="product">
+        <div class="container">
+            <div class="product-grid">
+                <div class="product-image">
+                    <div style="font-size: 200px;">💊</div>
+                </div>
+                <div class="product-info">
+                    <h2>逆动力 氢镁胶囊</h2>
+                    <p>采用先进氢镁双成分协同技术，由中国氢科学研究院研发，日本进口原料，科学研究证实其卓越的健康功效。</p>
+                    <div class="price">
+                        <span class="original">¥5980</span> ¥2988/盒
+                    </div>
+                    <ul class="features">
+                        <li>氢 + 镁双成分协同，更高效</li>
+                        <li>中国氢科学研究院研发</li>
+                        <li>日本进口原料</li>
+                        <li>60粒/盒，每日1-2粒</li>
+                        <li>可与NMN搭配使用</li>
+                    </ul>
+                    <a href="#order" class="btn">立即下单</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits" id="benefits">
+        <div class="container">
+            <h2>核心功效</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🛡️</div>
+                    <h3>抗氧化</h3>
+                    <p>中和自由基，延缓衰老</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">⚡</div>
+                    <h3>能量代谢</h3>
+                    <p>提升身体能量水平</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🧠</div>
+                    <h3>神经保护</h3>
+                    <p>支持大脑健康功能</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🔄</div>
+                    <h3>代谢调节</h3>
+                    <p>调节身体代谢平衡</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="science" id="science">
+        <div class="container">
+            <h2>科学背景</h2>
+            <div class="science-content">
+                <div class="science-item">
+                    <h3>🔬 氢的研究</h3>
+                    <p>氢气是已知最小的分子，能够穿透细胞膜，快速到达线粒体，清除有害自由基。大量临床研究证实氢气在抗氧化、抗炎等方面具有显著效果。</p>
+                </div>
+                <div class="science-item">
+                    <h3>⚡ 镁的作用</h3>
+                    <p>镁是人体必需的矿物质，参与300多种酶的活化，是能量代谢、神经传导、肌肉收缩的关键因子。现代人普遍缺镁，需要额外补充。</p>
+                </div>
+                <div class="science-item">
+                    <h3>🤝 协同效应</h3>
+                    <p>氢和镁的协同作用比单独使用更加显著。氢促进镁的吸收，镁增强氢的生物利用度，达到1+1>2的效果。</p>
+                </div>
+                <div class="science-item">
+                    <h3>🇨🇳 中国智造</h3>
+                    <p>由中国人自己研发的健康产品，代表了中国在氢健康领域的最新科研成果。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="order" id="order">
+        <div class="container">
+            <h2>立即下单</h2>
+            <div class="order-form">
+                <form id="purchaseForm">
+                    <div class="form-group">
+                        <label>币种 / Currency</label>
+                        <select id="currency" onchange="changeCurrency()">
+                            <option value="CNY">🇨🇳 人民币 ¥2988</option>
+                            <option value="USD">🇺🇸 美元 $418</option>
+                            <option value="HKD">🇭🇰 港币 HK$3288</option>
+                            <option value="MOP">🇲🇴 澳门币 MOP3346</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>姓名 *</label>
+                        <input type="text" name="name" required placeholder="请输入您的姓名">
+                    </div>
+                    <div class="form-group">
+                        <label>电话 *</label>
+                        <input type="tel" name="phone" required placeholder="请输入您的联系电话">
+                    </div>
+                    <div class="form-group">
+                        <label>邮箱</label>
+                        <input type="email" name="email" placeholder="用于接收订单通知">
+                    </div>
+                    <div class="form-group">
+                        <label>收货地址 *</label>
+                        <input type="text" name="address" required placeholder="请输入详细收货地址">
+                    </div>
+                    <div class="form-group">
+                        <label>发货方式</label>
+                        <div class="shipping-options">
+                            <div class="shipping-option selected" onclick="selectShipping(this, 'macau')">
+                                <h4>澳门直发</h4>
+                                <p>国际物流7-14天</p>
+                            </div>
+                            <div class="shipping-option" onclick="selectShipping(this, 'bonded')">
+                                <h4>保税仓发货</h4>
+                                <p>国内物流3-5天</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>购买数量</label>
+                        <div class="quantity-selector">
+                            <button type="button" class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+                            <span id="quantity" style="font-size: 20px; font-weight: bold; min-width: 40px; text-align: center;">1</span>
+                            <button type="button" class="quantity-btn" onclick="changeQuantity(1)">+</button>
+                        </div>
+                    </div>
+                    <div class="total-price">
+                        总价: ¥<span id="totalPrice">299</span>
+                    </div>
+                    <button type="submit" class="submit-btn">提交订单</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>健康人生，从"氢"开始</h2>
+            <p>前100名下单享8折优惠</p>
+            <p style="margin-top: 20px; opacity: 0.7;">澳门发货 | 保税仓发货 | 全球配送</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 逆动力 | 中国氢科学研究院</p>
+            <p>联系我们: support@nidongli.com</p>
+        </div>
+    </footer>
+
+    <script>
+        let quantity = 1;
+        const price = 2988;
+        const prices = {
+            'CNY': { symbol: '¥', rate: 1, name: '人民币' },
+            'USD': { symbol: '$', rate: 0.14, name: '美元' },
+            'HKD': { symbol: 'HK$', rate: 1.1, name: '港币' },
+            'MOP': { symbol: 'MOP', rate:1.12, name: '澳门币' }
+        };
+        let currentCurrency = 'CNY';
+        let selectedShipping = 'macau';
+
+        function changeCurrency() {
+            currentCurrency = document.getElementById('currency').value;
+            const curr = prices[currentCurrency];
+            const displayPrice = Math.round(price * curr.rate);
+            document.getElementById('totalPrice').textContent = displayPrice;
+            document.querySelector('.total-price').innerHTML = '总价: ' + curr.symbol + displayPrice;
+        }
+
+        function changeQuantity(delta) {
+            quantity = Math.max(1, quantity + delta);
+            document.getElementById('quantity').textContent = quantity;
+            const curr = prices[currentCurrency];
+            const displayPrice = Math.round(price * curr.rate);
+            document.getElementById('totalPrice').textContent = displayPrice * quantity;
+            document.querySelector('.total-price').innerHTML = '总价: ' + curr.symbol + (displayPrice * quantity);
+        }
+
+        function selectShipping(element, type) {
+            document.querySelectorAll('.shipping-option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedShipping = type;
+        }
+
+        document.getElementById('purchaseForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            data.quantity = quantity;
+            data.shipping = selectedShipping;
+            data.total = quantity * price;
+            
+            // 模拟提交
+            alert('订单已提交！我们会尽快联系您确认订单详情。\n\n订单信息：\n数量：' + quantity + '盒\n总价：¥' + (quantity * price) + '\n发货方式：' + (selectedShipping === 'macau' ? '澳门直发' : '保税仓发货'));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>逆动力 - 氢镁胶囊 | Hydrogen Magnesium Capsule</title>
+    <meta name="description" content="中国氢科学研究院成果 - 氢镁胶囊新一代健康长寿方案">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #e94560;
+            --gold: #d4af37;
+            --light: #f8f9fa;
+            --text: #2d3436;
+            --text-light: #636e72;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, sans-serif;
+            line-height: 1.8;
+            color: var(--text);
+            background: var(--light);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        /* Header */
+        header {
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(20px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover { color: var(--accent); }
+        .nav-links a:hover::after { width: 100%; }
+        
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: white;
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 80%, rgba(233,69,96,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(212,175,55,0.1) 0%, transparent 40%);
+        }
+        
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 24px;
+        }
+        
+        .hero-text h1 span {
+            color: var(--gold);
+        }
+        
+        .hero-text p {
+            font-size: 18px;
+            opacity: 0.85;
+            margin-bottom: 16px;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .hero-text .tagline {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent);
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+        
+        .hero-image {
+            position: relative;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            max-width: 480px;
+            border-radius: 24px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+        }
+        
+        .hero-badge {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            background: var(--gold);
+            color: var(--primary);
+            padding: 16px 24px;
+            border-radius: 16px;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(212,175,55,0.4);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 18px 36px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(233,69,96,0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid rgba(255,255,255,0.3);
+            margin-left: 16px;
+        }
+        
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+        
+        /* Stats */
+        .stats {
+            background: white;
+            padding: 60px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+        
+        .stat-item h3 {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--accent);
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .stat-item p {
+            color: var(--text-light);
+            font-size: 14px;
+            margin-top: 8px;
+        }
+        
+        /* Product */
+        .product {
+            padding: 120px 0;
+            background: white;
+        }
+        
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 60px;
+        }
+        
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            margin-bottom: 16px;
+            color: var(--primary);
+        }
+        
+        .section-header p {
+            color: var(--text-light);
+            font-size: 17px;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        
+        .product-image {
+            position: relative;
+        }
+        
+        .product-image img {
+            width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+        }
+        
+        .product-badge {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: white;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+        
+        .product-info h3 {
+            font-size: 32px;
+            margin-bottom: 16px;
+            color: var(--primary);
+        }
+        
+        .product-info > p {
+            color: var(--text-light);
+            font-size: 16px;
+            margin-bottom: 32px;
+        }
+        
+        .price-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+            padding: 24px;
+            border-radius: 16px;
+            margin-bottom: 32px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .price {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .price .original {
+            text-decoration: line-through;
+            color: var(--text-light);
+            font-size: 20px;
+            margin-right: 12px;
+        }
+        
+        .price .discount {
+            background: var(--accent);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-left: 12px;
+        }
+        
+        .features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+        
+        .features li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .features li::before {
+            content: '✓';
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+        
+        /* Benefits */
+        .benefits {
+            padding: 120px 0;
+            background: linear-gradient(180deg, #f8f9fa 0%, #fff 100%);
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+        }
+        
+        .benefit-card {
+            background: white;
+            padding: 40px 32px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+            transition: all 0.3s;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+        
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 36px;
+        }
+        
+        .benefit-card h4 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+        
+        .benefit-card p {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        /* Science */
+        .science {
+            padding: 120px 0;
+            background: var(--primary);
+            color: white;
+        }
+        
+        .science .section-header h2,
+        .science .section-header p {
+            color: white;
+        }
+        
+        .science .section-header p {
+            opacity: 0.8;
+        }
+        
+        .science-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+        
+        .science-card {
+            background: rgba(255,255,255,0.05);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+        
+        .science-card:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: var(--gold);
+        }
+        
+        .science-card h4 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: var(--gold);
+        }
+        
+        .science-card p {
+            opacity: 0.85;
+            line-height: 1.8;
+        }
+        
+        /* Order */
+        .order {
+            padding: 120px 0;
+            background: linear-gradient(180deg, #fff 0%, #f8f9fa 100%);
+        }
+        
+        .order-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+        
+        .order-form {
+            background: white;
+            padding: 48px;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+        }
+        
+        .order-form h3 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+        
+        .order-form > p {
+            color: var(--text-light);
+            margin-bottom: 32px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text);
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--accent) 0%, #c73e54 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 12px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(233,69,96,0.3);
+        }
+        
+        .order-summary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 48px;
+            border-radius: 24px;
+            color: white;
+        }
+        
+        .order-summary h3 {
+            font-size: 28px;
+            margin-bottom: 32px;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .summary-item.total {
+            border-bottom: none;
+            padding-top: 24px;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .trust-badges {
+            display: flex;
+            gap: 20px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+        
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 60px 0 40px;
+            text-align: center;
+        }
+        
+        footer p {
+            opacity: 0.7;
+            font-size: 14px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-content,
+            .product-grid,
+            .order-wrapper {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .hero-text h1 { font-size: 36px; }
+            
+            .stats-grid,
+            .benefits-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .science-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">逆动力</div>
+                <div class="nav-links">
+                    <a href="#product">产品</a>
+                    <a href="#benefits">功效</a>
+                    <a href="#science">科学</a>
+                    <a href="#order">购买</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <p class="tagline">中国氢科学研究院 · 研发</p>
+                    <h1>氢镁胶囊</h1>
+                    <p>新一代健康长寿方案 · 氢 + 镁双成分协同</p>
+                    <p style="font-size: 15px; opacity: 0.7;">日本进口原料 | 科学研究证实 | 澳门发货</p>
+                    <div style="margin-top: 32px;">
+                        <a href="#order" class="btn">立即购买</a>
+                        <a href="#product" class="btn btn-outline">了解更多</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&q=80" alt="氢镁胶囊产品">
+                    <div class="hero-badge">限时8折</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>30+</h3>
+                    <p>项科学研究</p>
+                </div>
+                <div class="stat-item">
+                    <h3>98%</h3>
+                    <p>用户满意度</p>
+                </div>
+                <div class="stat-item">
+                    <h3>10万+</h3>
+                    <p>用户见证</p>
+                </div>
+                <div class="stat-item">
+                    <h3>100%</h3>
+                    <p>日本原料</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="product" id="product">
+        <div class="container">
+            <div class="section-header">
+                <h2>核心产品</h2>
+                <p>采用先进氢镁双成分协同技术，由中国氢科学研究院研发</p>
+            </div>
+            <div class="product-grid">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&q=80" alt="氢镁胶囊">
+                    <div class="product-badge">60粒/盒</div>
+                </div>
+                <div class="product-info">
+                    <h3>逆动力 氢镁胶囊</h3>
+                    <p>采用先进氢镁双成分协同技术，由中国氢科学研究院研发，日本进口原料，科学研究证实其卓越的健康功效。</p>
+                    <div class="price-box">
+                        <div class="price">
+                            <span class="original">¥5980</span>
+                            ¥2988
+                            <span class="discount">省50%</span>
+                        </div>
+                    </div>
+                    <ul class="features">
+                        <li>氢 + 镁双成分协同，更高效</li>
+                        <li>中国氢科学研究院研发</li>
+                        <li>日本进口原料</li>
+                        <li>60粒/盒，每日1-2粒</li>
+                        <li>可与NMN搭配使用</li>
+                    </ul>
+                    <a href="#order" class="btn">立即下单</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits" id="benefits">
+        <div class="container">
+            <div class="section-header">
+                <h2>核心功效</h2>
+                <p>科学配方，全方位守护健康</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🛡️</div>
+                    <h4>抗氧化</h4>
+                    <p>中和自由基，延缓衰老</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">⚡</div>
+                    <h4>能量代谢</h4>
+                    <p>提升身体能量水平</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🧠</div>
+                    <h4>神经保护</h4>
+                    <p>支持大脑健康功能</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🔄</div>
+                    <h4>代谢调节</h4>
+                    <p>调节身体代谢平衡</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="science" id="science">
+        <div class="container">
+            <div class="section-header">
+                <h2>科学背景</h2>
+                <p>基于30+项科学研究成果</p>
+            </div>
+            <div class="science-grid">
+                <div class="science-card">
+                    <h4>🔬 氢的研究</h4>
+                    <p>氢气是已知最小的分子，能够穿透细胞膜，快速到达线粒体，清除有害自由基。大量临床研究证实氢气在抗氧化、抗炎等方面具有显著效果。</p>
+                </div>
+                <div class="science-card">
+                    <h4>⚡ 镁的作用</h4>
+                    <p>镁是人体必需的矿物质，参与300多种酶的活化，是能量代谢、神经传导、肌肉收缩的关键因子。现代人普遍缺镁，需要额外补充。</p>
+                </div>
+                <div class="science-card">
+                    <h4>🤝 协同效应</h4>
+                    <p>氢和镁的协同作用比单独使用更加显著。氢促进镁的吸收，镁增强氢的生物利用度，达到1+1>2的效果。</p>
+                </div>
+                <div class="science-card">
+                    <h4>🇨🇳 中国智造</h4>
+                    <p>由中国人自己研发的健康产品，代表了中国在氢健康领域的最新科研成果。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="order" id="order">
+        <div class="container">
+            <div class="section-header">
+                <h2>立即订购</h2>
+                <p>前100名下单享8折优惠</p>
+            </div>
+            <div class="order-wrapper">
+                <div class="order-form">
+                    <h3>填写订单</h3>
+                    <p>填写以下信息，我们的客服将在24小时内联系您</p>
+                    <form id="purchaseForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>姓名 *</label>
+                                <input type="text" name="name" required placeholder="请输入您的姓名">
+                            </div>
+                            <div class="form-group">
+                                <label>电话 *</label>
+                                <input type="tel" name="phone" required placeholder="联系电话">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>邮箱</label>
+                            <input type="email" name="email" placeholder="用于接收订单通知">
+                        </div>
+                        <div class="form-group">
+                            <label>收货地址 *</label>
+                            <input type="text" name="address" required placeholder="详细收货地址">
+                        </div>
+                        <div class="form-group">
+                            <label>发货方式</label>
+                            <select name="shipping">
+                                <option value="macau">澳门直发 (7-14天)</option>
+                                <option value="bonded">保税仓发货 (3-5天)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>购买数量</label>
+                            <select name="quantity">
+                                <option value="1">1盒 - ¥2988</option>
+                                <option value="2">2盒 - ¥5688 (省290)</option>
+                                <option value="3">3盒 - ¥7988 (省598)</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="submit-btn">提交订单</button>
+                    </form>
+                </div>
+                <div class="order-summary">
+                    <h3>订单详情</h3>
+                    <div class="summary-item">
+                        <span>氢镁胶囊 × 1盒</span>
+                        <span>¥2988</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>运费</span>
+                        <span>到付</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>优惠</span>
+                        <span>-¥2992</span>
+                    </div>
+                    <div class="summary-item total">
+                        <span>总价</span>
+                        <span>¥2988</span>
+                    </div>
+                    <div class="trust-badges">
+                        <div class="trust-badge">🔒 安全支付</div>
+                        <div class="trust-badge">📦 保密发货</div>
+                        <div class="trust-badge">✅ 正品保证</div>
+                        <div class="trust-badge">🔄 7天无理由</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 逆动力 | 中国氢科学研究院</p>
+            <p style="margin-top: 8px;">联系我们: support@nidongli.com</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('purchaseForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('订单已提交！我们会尽快联系您确认订单详情。');
+        });
+    </script>
+</body>
+</html>

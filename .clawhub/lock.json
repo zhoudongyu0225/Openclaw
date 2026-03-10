@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "skills": {
+    "agent-browser": {
+      "version": "0.2.0",
+      "installedAt": 1772991709176
+    },
+    "feishu-bridge": {
+      "version": "1.0.0",
+      "installedAt": 1771756266267
+    },
+    "skill-creator": {
+      "version": "0.1.0",
+      "installedAt": 1771756624548
+    },
+    "feishu-doc": {
+      "version": "1.2.7",
+      "installedAt": 1771756632541
+    },
+    "feishu-memory-recall": {
+      "version": "2.0.0",
+      "installedAt": 1771757054204
+    },
+    "capability-evolver": {
+      "version": "1.14.0",
+      "installedAt": 1771762156481
+    },
+    "shopify-admin-api": {
+      "version": "1.0.0",
+      "installedAt": 1771767187316
+    },
+    "memory-tiering": {
+      "version": "1.0.0",
+      "installedAt": 1771780860990
+    },
+    "image-generation": {
+      "version": "1.0.2",
+      "installedAt": 1771789513649
+    },
+    "desktop-control": {
+      "version": "1.0.0",
+      "installedAt": 1772105587245
+    },
+    "self-improving-agent": {
+      "version": "1.0.11",
+      "installedAt": 1772105708558
+    },
+    "nano-pdf": {
+      "version": "1.0.0",
+      "installedAt": 1772105823919
+    },
+    "tavily-search": {
+      "version": "1.0.0",
+      "installedAt": 1772991706877
+    },
+    "github": {
+      "version": "1.0.0",
+      "installedAt": 1772991711945
+    },
+    "summarize": {
+      "version": "1.0.0",
+      "installedAt": 1772991708150
+    },
+    "find-skills": {
+      "version": "0.1.0",
+      "installedAt": 1772991710621
+    },
+    "obsidian": {
+      "version": "1.0.0",
+      "installedAt": 1772991713256
+    },
+    "weather": {
+      "version": "1.0.0",
+      "installedAt": 1772991714613
+    },
+    "tencentcloud-lighthouse-skill": {
+      "version": "1.0.0",
+      "installedAt": 1772991716172
+    },
+    "tencent-docs": {
+      "version": "1.0.1",
+      "installedAt": 1772991717576
+    },
+    "tencent-cos-skill": {
+      "version": "1.0.5",
+      "installedAt": 1772991718871
+    }
+  }
+}

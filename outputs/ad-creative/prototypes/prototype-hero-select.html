@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>万龙觉醒 - 英雄试玩</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(180deg, #0f0f23 0%, #1a1a3e 50%, #2d1b4e 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 20px;
+        }
+        .container { max-width: 400px; margin: 0 auto; }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            font-size: 24px;
+            background: linear-gradient(90deg, #f97316, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-select {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .hero-card {
+            flex: 1;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .hero-card:hover { border-color: #f97316; transform: translateY(-5px); }
+        .hero-card.selected { border-color: #f97316; background: rgba(249,115,22,0.2); }
+        .hero-icon { font-size: 40px; margin-bottom: 8px; }
+        .hero-name { font-weight: bold; margin-bottom: 4px; }
+        .hero-desc { font-size: 10px; color: #9ca3af; }
+        .hero-stats { margin-top: 8px; font-size: 11px; }
+        .battle-stage {
+            background: linear-gradient(180deg, #1e1e3f 0%, #2d2d5a 100%);
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 200px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .battle-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 150px;
+        }
+        .player { text-align: center; }
+        .enemy { text-align: center; }
+        .battle-hp {
+            width: 80px;
+            height: 8px;
+            background: #333;
+            border-radius: 4px;
+            margin: 5px auto;
+            overflow: hidden;
+        }
+        .hp-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #22c55e, #4ade80);
+            transition: width 0.3s;
+        }
+        .enemy .hp-bar { background: linear-gradient(90deg, #ef4444, #f87171); }
+        .vs { font-size: 24px; font-weight: bold; color: #fbbf24; }
+        .damage-num {
+            position: absolute;
+            font-size: 24px;
+            font-weight: bold;
+            color: #fbbf24;
+            animation: floatUp 1s forwards;
+        }
+        @keyframes floatUp {
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-50px); }
+        }
+        .btn-attack {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(90deg, #f97316, #fbbf24);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .result {
+            background: linear-gradient(135deg, #f97316 0%, #fbbf24 100%);
+            color: #1a1a2e;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            display: none;
+        }
+        .result.show { display: block; animation: fadeIn 0.5s; }
+        .loot { margin-top: 15px; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 8px; }
+        .loot-item { display: flex; align-items: center; gap: 8px; margin: 5px 0; }
+        .download-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: #ef4444;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🐉 选择你的英雄</h1>
+        </div>
+        
+        <div class="hero-select">
+            <div class="hero-card" onclick="selectHero(this, 'warrior')">
+                <div class="hero-icon">⚔️</div>
+                <div class="hero-name">烈风</div>
+                <div class="hero-desc">战士</div>
+                <div class="hero-stats">攻击:★★★★<br>防御:★★★</div>
+            </div>
+            <div class="hero-card" onclick="selectHero(this, 'mage')">
+                <div class="hero-icon">🔮</div>
+                <div class="hero-name">艾露</div>
+                <div class="hero-desc">法师</div>
+                <div class="hero-stats">攻击:★★★★★<br>防御:★</div>
+            </div>
+            <div class="hero-card" onclick="selectHero(this, 'ranger')">
+                <div class="hero-icon">🏹</div>
+                <div class="hero-name">夜影</div>
+                <div class="hero-desc">游侠</div>
+                <div class="hero-stats">攻击:★★★★<br>防御:★★</div>
+            </div>
+        </div>
+        
+        <div class="battle-stage">
+            <div class="battle-area">
+                <div class="player">
+                    <div style="font-size:40px;" id="playerIcon">⚔️</div>
+                    <div class="battle-hp"><div class="hp-bar" id="playerHp" style="width:100%"></div></div>
+                </div>
+                <div class="vs">VS</div>
+                <div class="enemy">
+                    <div style="font-size:40px;">👹</div>
+                    <div class="battle-hp"><div class="hp-bar" id="enemyHp" style="width:100%"></div></div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="btn-attack" onclick="attack()" id="attackBtn">⚡ 释放技能</button>
+        
+        <div class="result" id="result">
+            <h2>🎉 战斗胜利！</h2>
+            <p>越级击杀BOSS，获得稀有掉落：</p>
+            <div class="loot">
+                <div class="loot-item">🟠 橙色装备箱 ×1</div>
+                <div class="loot-item">💎 钻石 ×100</div>
+                <div class="loot-item">📜 技能书 ×2</div>
+            </div>
+            <button class="download-btn" onclick="download()">📥 进入游戏</button>
+        </div>
+    </div>
+    
+    <script>
+        let selectedHero = null;
+        let playerHp = 100;
+        let enemyHp = 100;
+        const heroes = {
+            warrior: { icon: '⚔️', dmg: 25 },
+            mage: { icon: '🔮', dmg: 35 },
+            ranger: { icon: '🏹', dmg: 30 }
+        };
+        
+        function selectHero(card, hero) {
+            document.querySelectorAll('.hero-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            selectedHero = hero;
+            document.getElementById('playerIcon').textContent = heroes[hero].icon;
+        }
+        
+        function attack() {
+            if (!selectedHero) { alert('请先选择英雄！'); return; }
+            
+            const dmg = heroes[selectedHero].dmg + Math.floor(Math.random() * 10);
+            enemyHp = Math.max(0, enemyHp - dmg);
+            document.getElementById('enemyHp').style.width = enemyHp + '%';
+            
+            // 显示伤害数字
+            showDamage(dmg);
+            
+            if (enemyHp <= 0) {
+                setTimeout(() => {
+                    document.getElementById('result').classList.add('show');
+                    document.getElementById('attackBtn').style.display = 'none';
+                }, 500);
+            }
+        }
+        
+        function showDamage(dmg) {
+            const num = document.createElement('div');
+            num.className = 'damage-num';
+            num.textContent = '-' + dmg;
+            num.style.left = '70%';
+            num.style.top = '40%';
+            document.querySelector('.battle-stage').appendChild(num);
+            setTimeout(() => num.remove(), 1000);
+        }
+        
+        function download() {
+            alert('跳转下载页...');
+        }
+    </script>
+</body>
+</html>

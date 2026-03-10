@@ -1,0 +1,318 @@
+// 弹幕游戏 Protobuf 协议定义
+// 生成命令: protoc --go_out=. --go_opt=paths=source_relative proto/game.proto
+
+syntax = "proto3";
+
+package proto;
+
+option go_package = "barrage-game/internal/protobuf";
+
+// ========== 客户端 -> 服务器 ==========
+
+// CSMessage 客户端消息包装
+message CSMessage {
+    uint32 msg_id = 1;
+    bytes data = 2;
+}
+
+// 消息ID枚举
+enum CSMsgID {
+    CS_HEARTBEAT = 0;
+    CS_CREATE_ROOM = 1;
+    CS_JOIN_ROOM = 2;
+    CS_LEAVE_ROOM = 3;
+    CS_ROOM_LIST = 4;
+    CS_READY = 5;
+    CS_START_GAME = 6;
+    CS_PLAYER_ACTION = 7;
+    CS_PLACE_TOWER = 8;
+    CS_UPGRADE_TOWER = 9;
+    CS_SELL_TOWER = 10;
+}
+
+// CSHeartbeat 心跳
+message CSHeartbeat {
+    uint64 timestamp = 1;
+}
+
+// CSCreateRoom 创建房间
+message CSCreateRoom {
+    string name = 1;
+    string mode = 2; // "rank", "normal", "practice"
+    string map_id = 3;
+    uint32 max_players = 4;
+}
+
+// CSJoinRoom 加入房间
+message CSJoinRoom {
+    string room_id = 1;
+    string player_name = 2;
+}
+
+// CSLeaveRoom 离开房间
+message CSLeaveRoom {}
+
+// CSRoomList 房间列表
+message CSRoomList {
+    string mode = 1; // 空则返回所有
+    uint32 page = 2;
+    uint32 page_size = 3;
+}
+
+// CSReady 准备/取消准备
+message CSReady {
+    bool ready = 1;
+}
+
+// CSStartGame 开始游戏 (房主)
+message CSStartGame {}
+
+// CSPlayerAction 玩家操作
+message CSPlayerAction {
+    uint32 frame_id = 1;
+    uint32 action_type = 2; // 1=移动, 2=攻击, 3=技能
+    float x = 3;
+    float y = 4;
+    string target_id = 5;
+}
+
+// CSPlaceTower 放置塔
+message CSPlaceTower {
+    string tower_id = 1;
+    float x = 2;
+    float y = 3;
+}
+
+// CSUpgradeTower 升级塔
+message CSUpgradeTower {
+    string tower_instance_id = 1;
+}
+
+// CSSellTower 出售塔
+message CSSellTower {
+    string tower_instance_id = 1;
+}
+
+// ========== 服务器 -> 客户端 ==========
+
+// SCMessage 服务器消息包装
+message SCMessage {
+    uint32 msg_id = 1;
+    bytes data = 2;
+}
+
+// 消息ID枚举
+enum SCMsgID {
+    SC_HEARTBEAT_ACK = 0;
+    SC_CREATE_ROOM_ACK = 1;
+    SC_JOIN_ROOM_ACK = 2;
+    SC_LEAVE_ROOM_ACK = 3;
+    SC_ROOM_LIST_ACK = 4;
+    SC_ROOM_UPDATE = 5;
+    SC_PLAYER_JOIN = 6;
+    SC_PLAYER_LEAVE = 7;
+    SC_GAME_START = 8;
+    SC_GAME_STATE = 9;
+    SC_FRAME_SYNC = 10;
+    SC_TOWER_PLACED = 11;
+    SC_TOWER_UPGRADED = 12;
+    SC_TOWER_SOLD = 13;
+    SC_ERROR = 99;
+}
+
+// SCHeartbeatAck 心跳回应
+message SCHeartbeatAck {
+    uint64 server_time = 1;
+    uint64 client_time = 2;
+}
+
+// SCCreateRoomAck 创建房间回应
+message SCCreateRoomAck {
+    bool success = 1;
+    string room_id = 2;
+    RoomInfo room = 3;
+    string error_msg = 4;
+}
+
+// SCJoinRoomAck 加入房间回应
+message SCJoinRoomAck {
+    bool success = 1;
+    RoomInfo room = 2;
+    PlayerInfo self = 3;
+    string error_msg = 4;
+}
+
+// SCLeaveRoomAck 离开房间回应
+message SCLeaveRoomAck {
+    bool success = 1;
+}
+
+// SCRoomListAck 房间列表回应
+message SCRoomListAck {
+    repeated RoomInfo rooms = 1;
+    uint32 total = 2;
+    uint32 page = 3;
+}
+
+// SCRoomUpdate 房间更新
+message SCRoomUpdate {
+    RoomInfo room = 1;
+}
+
+// SCPlayerJoin 玩家加入
+message SCPlayerJoin {
+    PlayerInfo player = 1;
+}
+
+// SCPlayerLeave 玩家离开
+message SCPlayerLeave {
+    string player_id = 1;
+    string reason = 2; // "leave", "kick", "disconnect"
+}
+
+// SCGameStart 游戏开始
+message SCGameStart {
+    uint32 game_id = 1;
+    uint64 start_time = 2;
+    repeated PlayerInfo players = 3;
+    MapInfo map = 4;
+}
+
+// SCGameState 游戏状态 (全量)
+message SCGameState {
+    uint32 frame_id = 1;
+    uint64 timestamp = 2;
+    repeated TowerState towers = 3;
+    repeated EnemyState enemies = 4;
+    repeated ProjectileState projectiles = 5;
+    map<string, PlayerGameState> player_states = 6;
+}
+
+// SCFrameSync 帧同步 (增量)
+message SCFrameSync {
+    uint32 frame_id = 1;
+    repeated PlayerAction actions = 2;
+}
+
+// PlayerAction 玩家动作
+message PlayerAction {
+    string player_id = 1;
+    uint32 action_type = 2;
+    float x = 3;
+    float y = 4;
+    string target_id = 5;
+    uint32 timestamp = 6;
+}
+
+// ========== 数据结构 ==========
+
+// RoomInfo 房间信息
+message RoomInfo {
+    string id = 1;
+    string name = 2;
+    string mode = 3;
+    string map_id = 4;
+    uint32 max_players = 5;
+    uint32 cur_players = 6;
+    string status = 7; // "waiting", "playing", "finished"
+    uint64 created_at = 8;
+    string owner_id = 9;
+}
+
+// PlayerInfo 玩家信息
+message PlayerInfo {
+    string id = 1;
+    string name = 2;
+    string team = 3; // "blue", "red"
+    bool is_ready = 4;
+    bool is_owner = 5;
+    uint64 join_at = 6;
+}
+
+// PlayerGameState 玩家游戏状态
+message PlayerGameState {
+    string player_id = 1;
+    float x = 2;
+    float y = 3;
+    uint32 hp = 4;
+    uint32 mana = 5;
+    uint32 gold = 6;
+    uint32 score = 7;
+}
+
+// TowerState 塔状态
+message TowerState {
+    string instance_id = 1;
+    string tower_id = 2;
+    string owner_id = 3;
+    float x = 4;
+    float y = 5;
+    uint32 level = 6;
+    uint32 hp = 7;
+    uint32 damage = 8;
+    float attack_range = 9;
+    float attack_speed = 10;
+}
+
+// EnemyState 敌人状态
+message EnemyState {
+    string instance_id = 1;
+    string enemy_id = 2;
+    uint32 wave = 3;
+    float x = 4;
+    float y = 5;
+    uint32 hp = 6;
+    uint32 max_hp = 7;
+    float speed = 8;
+    string path_id = 9;
+    float path_progress = 10;
+    bool is_boss = 11;
+}
+
+// ProjectileState 投射物状态
+message ProjectileState {
+    string instance_id = 1;
+    string tower_instance_id = 2;
+    string target_id = 3;
+    float x = 4;
+    float y = 5;
+    float vx = 6;
+    float vy = 7;
+    uint32 damage = 8;
+}
+
+// MapInfo 地图信息
+message MapInfo {
+    string id = 1;
+    string name = 2;
+    uint32 width = 3;
+    uint32 height = 4;
+    repeated PathInfo paths = 5;
+    repeated SpawnInfo spawns = 6;
+}
+
+// PathInfo 路径信息
+message PathInfo {
+    string id = 1;
+    repeated Point points = 2;
+}
+
+// SpawnInfo 刷怪点信息
+message SpawnInfo {
+    string id = 1;
+    string path_id = 2;
+    float x = 3;
+    float y = 4;
+}
+
+// Point 2D点
+message Point {
+    float x = 1;
+    float y = 2;
+}
+
+// SCError 错误消息
+message SCError {
+    uint32 code = 1;
+    string message = 2;
+}

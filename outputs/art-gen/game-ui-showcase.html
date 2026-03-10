@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>游戏UI素材展示</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0f;
+            color: #fff;
+            min-height: 100vh;
+        }
+        
+        /* 顶部导航 */
+        .header {
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #2a3f5f;
+        }
+        .logo { font-size: 24px; font-weight: bold; color: #00d4ff; }
+        
+        /* 分类标签 */
+        .tabs { 
+            display: flex; 
+            gap: 10px; 
+            padding: 20px 40px;
+            background: #0f0f1a;
+            overflow-x: auto;
+        }
+        .tab {
+            padding: 10px 24px;
+            background: #1a1a2e;
+            border: 1px solid #2a3f5f;
+            border-radius: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: 0.2s;
+        }
+        .tab:hover, .tab.active {
+            background: #00d4ff;
+            color: #0a0a0f;
+            border-color: #00d4ff;
+        }
+        
+        /* 素材网格 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 40px;
+        }
+        
+        /* 素材卡片 */
+        .card {
+            background: #1a1a2e;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #2a3f5f;
+            transition: 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: #00d4ff;
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
+        }
+        
+        /* 卡片预览区 */
+        .preview {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0f0f1a;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 模拟UI元素 */
+        .ui-menu { padding: 20px; }
+        .ui-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .ui-hud {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 8px;
+        }
+        .ui-hud-item {
+            width: 60px;
+            height: 40px;
+            background: linear-gradient(135deg, #2a2a4e, #1a1a3e);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            border: 1px solid #3a3f6f;
+        }
+        .ui-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #ff6b35, #f7c531);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        /* 卡片信息 */
+        .info { padding: 16px; }
+        .title { font-size: 16px; font-weight: bold; margin-bottom: 8px; }
+        .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+        .tag {
+            padding: 4px 10px;
+            background: rgba(0, 212, 255, 0.2);
+            color: #00d4ff;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        .desc { 
+            margin-top: 12px; 
+            color: #888; 
+            font-size: 13px; 
+            line-height: 1.5; 
+        }
+        
+        /* 红警风格 */
+        .style-cnc .preview { background: linear-gradient(135deg, #1a2a1a, #0a1a0a); }
+        .style-cnc .ui-btn { 
+            background: linear-gradient(135deg, #4a7c23, #3d6a1c); 
+            border: 1px solid #6ab32e;
+        }
+        .style-cnc .ui-hud-item { border-color: #4a7c23; }
+        
+        /* 科幻风格 */
+        .style-sci .preview { background: linear-gradient(135deg, #0a1a2a, #051525); }
+        .style-sci .ui-btn { 
+            background: linear-gradient(135deg, #00d4ff, #0088aa); 
+            box-shadow: 0 0 20px rgba(0,212,255,0.5);
+        }
+        
+        /* 暗黑风格 */
+        .style-dark .preview { background: linear-gradient(135deg, #1a1a1a, #0a0a0a); }
+        .style-dark .ui-btn { 
+            background: linear-gradient(135deg, #6b2d5c, #4a1f40); 
+            border: 1px solid #8b3d6c;
+        }
+        
+        /* 页脚 */
+        .footer {
+            padding: 40px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #2a3f5f;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">🎮 游戏UI素材库</div>
+        <div style="color: #666;">持续更新中...</div>
+    </div>
+    
+    <div class="tabs">
+        <div class="tab active">全部</div>
+        <div class="tab">主菜单</div>
+        <div class="tab">HUD界面</div>
+        <div class="tab">按钮</div>
+        <div class="tab">图标</div>
+        <div class="tab">商店</div>
+        <div class="tab">设置</div>
+    </div>
+    
+    <div class="grid">
+        <!-- 主菜单 -->
+        <div class="card style-sci">
+            <div class="preview">
+                <div class="ui-menu">
+                    <div class="ui-btn" style="margin-bottom: 15px;">开始游戏</div>
+                    <div class="ui-btn" style="margin-bottom: 15px; opacity: 0.7;">继续游戏</div>
+                    <div class="ui-btn" style="opacity: 0.5;">设置</div>
+                </div>
+            </div>
+            <div class="info">
+                <div class="title">科幻风格主菜单</div>
+                <div class="tags">
+                    <span class="tag">科幻</span>
+                    <span class="tag">蓝色调</span>
+                    <span class="tag">发光效果</span>
+                </div>
+                <div class="desc">适用于科幻/太空/未来题材游戏的主菜单界面</div>
+            </div>
+        </div>
+        
+        <!-- HUD -->
+        <div class="card style-cnc">
+            <div class="preview">
+                <div class="ui-hud">
+                    <div class="ui-hud-item">💰</div>
+                    <div class="ui-hud-item">⚔️</div>
+                    <div class="ui-hud-item">❤️</div>
+                    <div class="ui-hud-item">⏱️</div>
+                </div>
+            </div>
+            <div class="info">
+                <div class="title">红警风格HUD</div>
+                <div class="tags">
+                    <span class="tag">红警</span>
+                    <span class="tag">军事</span>
+                    <span class="tag">绿色调</span>
+                </div>
+                <div class="desc">资源/战斗/生命/时间显示，适用于RTS/策略游戏</div>
+            </div>
+        </div>
+        
+        <!-- 商店 -->
+        <div class="card style-dark">
+            <div class="preview">
+                <div style="text-align: center;">
+                    <div class="ui-icon" style="margin: 0 auto 10px;">💎</div>
+                    <div style="font-size: 12px; color: #888;">648钻石</div>
+                    <div style="font-size: 18px; color: #ffd700; font-weight: bold;">¥68</div>
+                </div>
+            </div>
+            <div class="info">
+                <div class="title">暗黑风格商店图标</div>
+                <div class="tags">
+                    <span class="tag">暗黑</span>
+                    <span class="tag">紫色调</span>
+                    <span class="tag">商城</span>
+                </div>
+                <div class="desc">适用于RPG/卡牌游戏的商城道具图标</div>
+            </div>
+        </div>
+        
+        <!-- 战斗按钮 -->
+        <div class="card style-sci">
+            <div class="preview">
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+                    <div class="ui-hud-item">⚡</div>
+                    <div class="ui-hud-item">🛡️</div>
+                    <div class="ui-hud-item">🔥</div>
+                    <div class="ui-hud-item">❄️</div>
+                    <div class="ui-hud-item">⚔️</div>
+                    <div class="ui-hud-item">💚</div>
+                </div>
+            </div>
+            <div class="info">
+                <div class="title">科幻技能按钮组</div>
+                <div class="tags">
+                    <span class="tag">科幻</span>
+                    <span class="tag">技能</span>
+                    <span class="tag">6按钮</span>
+                </div>
+                <div class="desc">适用于动作/ARPG游戏的技能栏按钮</div>
+            </div>
+        </div>
+        
+        <!-- 设置界面 -->
+        <div class="card style-cnc">
+            <div class="preview">
+                <div class="ui-menu">
+                    <div style="color: #6ab32e; margin-bottom: 10px;">🔊 音量</div>
+                    <div style="width: 150px; height: 8px; background: #2a3a1a; border-radius: 4px; margin-bottom: 15px;">
+                        <div style="width: 70%; height: 100%; background: #4a7c23; border-radius: 4px;"></div>
+                    </div>
+                    <div style="color: #6ab32e; margin-bottom: 10px;">🎵 音乐</div>
+                    <div style="width: 150px; height: 8px; background: #2a3a1a; border-radius: 4px;">
+                        <div style="width: 50%; height: 100%; background: #4a7c23; border-radius: 4px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="info">
+                <div class="title">红警风格设置条</div>
+                <div class="tags">
+                    <span class="tag">红警</span>
+                    <span class="tag">设置</span>
+                    <span class="tag">进度条</span>
+                </div>
+                <div class="desc">音量/进度条UI元素，适用于各种游戏设置界面</div>
+            </div>
+        </div>
+        
+        <!-- 角色卡片 -->
+        <div class="card style-dark">
+            <div class="preview">
+                <div style="text-align: center;">
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #8b3d6c, #4a1f40); border-radius: 50%; margin: 0 auto 10px; border: 2px solid #ab5d8c;"></div>
+                    <div style="font-weight: bold;">暗影刺客</div>
+                    <div style="font-size: 12px; color: #ab5d8c;">Lv.50</div>
+                </div>
+            </div>
+            <div class="info">
+                <div class="title">暗黑风格角色卡</div>
+                <div class="tags">
+                    <span class="tag">暗黑</span>
+                    <span class="tag">RPG</span>
+                    <span class="tag">角色</span>
+                </div>
+                <div class="desc">适用于卡牌/RPG游戏的角色展示卡片</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>🎨 素材持续生成中... 需要AI生成真图请联系</p>
+    </div>
+</body>
+</html>

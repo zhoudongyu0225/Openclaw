@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>万国觉醒 - 城市建设试玩</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 20px;
+        }
+        .container { max-width: 400px; margin: 0 auto; }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            font-size: 24px;
+            color: #f0c040;
+            text-shadow: 0 0 10px rgba(240, 192, 64, 0.5);
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .stat { text-align: center; }
+        .stat-value { font-size: 24px; font-weight: bold; color: #4ade80; }
+        .stat-label { font-size: 12px; color: #9ca3af; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .cell {
+            aspect-ratio: 1;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .cell:hover { border-color: #f0c040; transform: scale(1.05); }
+        .cell.built { background: rgba(240, 192, 64, 0.2); border-color: #f0c040; }
+        .cell-icon { font-size: 24px; margin-bottom: 4px; }
+        .cell-label { font-size: 10px; color: #9ca3af; }
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-resource { background: #22c55e; color: #fff; }
+        .btn-military { background: #ef4444; color: #fff; }
+        .btn-defense { background: #3b82f6; color: #fff; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .result {
+            background: linear-gradient(135deg, #f0c040 0%, #fbbf24 100%);
+            color: #1a1a2e;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            display: none;
+        }
+        .result.show { display: block; animation: fadeIn 0.5s; }
+        .result h2 { font-size: 20px; margin-bottom: 10px; }
+        .result .score { font-size: 36px; font-weight: bold; margin: 10px 0; }
+        .download-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: #ef4444;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏰 城市建设试玩</h1>
+            <p style="color:#9ca3af;font-size:12px;">选择你的发展路线</p>
+        </div>
+        
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value" id="gold">0</div>
+                <div class="stat-label">金币</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="power">0</div>
+                <div class="stat-label">战力</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="defense">0</div>
+                <div class="stat-label">防御</div>
+            </div>
+        </div>
+        
+        <div class="actions">
+            <button class="btn btn-resource" onclick="selectType('resource')">💰 资源</button>
+            <button class="btn btn-military" onclick="selectType('military')">⚔️ 军事</button>
+            <button class="btn btn-defense" onclick="selectType('defense')">🛡️ 防御</button>
+        </div>
+        
+        <div class="grid" id="grid">
+            <!-- 9个格子 -->
+        </div>
+        
+        <div class="result" id="result">
+            <h2>🎉 城市评级</h2>
+            <div class="score" id="score">B</div>
+            <p>你的城市发展得不错！</p>
+            <button class="download-btn" onclick="download()">📥 下载游戏</button>
+        </div>
+    </div>
+    
+    <script>
+        let gold = 100;
+        let power = 50;
+        let defense = 20;
+        let cellsBuilt = 0;
+        let currentType = 'resource';
+        
+        const grid = document.getElementById('grid');
+        
+        // 初始化网格
+        for (let i = 0; i < 9; i++) {
+            const cell = document.createElement('div');
+            cell.className = 'cell';
+            cell.innerHTML = '<span class="cell-icon">➕</span><span class="cell-label">点击建造</span>';
+            cell.onclick = () => buildCell(cell);
+            grid.appendChild(cell);
+        }
+        
+        function selectType(type) {
+            currentType = type;
+            const icons = { resource: '💰', military: '⚔️', defense: '🛡️' };
+            alert('已选择: ' + icons[type] + ' 路线，点击格子建造');
+        }
+        
+        function buildCell(cell) {
+            if (cell.classList.contains('built')) return;
+            
+            const icons = {
+                resource: { icon: '🏠', label: '民居' },
+                military: { icon: '⚔️', label: '兵营' },
+                defense: { icon: '🏰', label: '城墙' }
+            };
+            
+            cell.classList.add('built');
+            cell.innerHTML = `<span class="cell-icon">${icons[currentType].icon}</span><span class="cell-label">${icons[currentType].label}</span>`;
+            
+            // 更新数值
+            if (currentType === 'resource') {
+                gold += Math.floor(Math.random() * 100) + 50;
+                document.getElementById('gold').textContent = gold;
+            } else if (currentType === 'military') {
+                power += Math.floor(Math.random() * 80) + 30;
+                document.getElementById('power').textContent = power;
+            } else {
+                defense += Math.floor(Math.random() * 60) + 20;
+                document.getElementById('defense').textContent = defense;
+            }
+            
+            cellsBuilt++;
+            
+            // 全部建造完成
+            if (cellsBuilt >= 9) {
+                showResult();
+            }
+        }
+        
+        function showResult() {
+            const total = gold / 10 + power + defense;
+            let grade, message;
+            
+            if (total > 800) { grade = 'S'; message = '超级大佬！'; }
+            else if (total > 600) { grade = 'A'; message = '发展得很好！'; }
+            else if (total > 400) { grade = 'B'; message = '还不错哦！'; }
+            else { grade = 'C'; message = '继续努力！'; }
+            
+            document.getElementById('score').textContent = grade;
+            document.getElementById('result').querySelector('p').textContent = message;
+            document.getElementById('result').classList.add('show');
+        }
+        
+        function download() {
+            alert('跳转下载页...');
+        }
+    </script>
+</body>
+</html>
