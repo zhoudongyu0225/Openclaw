@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>氢镁胶囊 - 逆动力 | 提升能量，改善睡眠</title>
+    <meta name="description" content="中国氢科学研究院成果，氢+镁双成分，日本进口原料，提升能量，改善睡眠质量">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* Header */
+        header { background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: fixed; width: 100%; top: 0; z-index: 100; }
+        .header-content { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; }
+        .logo { font-size: 24px; font-weight: bold; color: #0066cc; }
+        .nav { display: flex; gap: 30px; }
+        .nav a { color: #333; text-decoration: none; transition: color 0.3s; }
+        .nav a:hover { color: #0066cc; }
+        
+        /* Hero */
+        .hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 150px 0 100px; text-align: center; }
+        .hero h1 { font-size: 48px; margin-bottom: 20px; }
+        .hero p { font-size: 20px; opacity: 0.9; margin-bottom: 30px; }
+        .cta-button { display: inline-block; background: #ff6b35; color: white; padding: 15px 40px; border-radius: 50px; text-decoration: none; font-size: 18px; font-weight: bold; transition: transform 0.3s; }
+        .cta-button:hover { transform: scale(1.05); }
+        
+        /* Benefits */
+        .benefits { padding: 80px 0; background: #f8f9fa; }
+        .benefits h2 { text-align: center; font-size: 36px; margin-bottom: 50px; }
+        .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .benefit-card { background: white; padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .benefit-icon { font-size: 48px; margin-bottom: 20px; }
+        .benefit-card h3 { font-size: 24px; margin-bottom: 15px; color: #0066cc; }
+        
+        /* Product */
+        .product { padding: 80px 0; }
+        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .product-image { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); height: 400px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 120px; }
+        .product-info h2 { font-size: 36px; margin-bottom: 20px; }
+        .price { font-size: 48px; color: #ff6b35; font-weight: bold; margin: 20px 0; }
+        .price span { font-size: 20px; color: #666; }
+        .features { list-style: none; margin: 30px 0; }
+        .features li { padding: 10px 0; border-bottom: 1px solid #eee; }
+        .features li::before { content: "✓"; color: #0066cc; margin-right: 10px; }
+        
+        /* Testimonials */
+        .testimonials { padding: 80px 0; background: #f8f9fa; }
+        .testimonials h2 { text-align: center; font-size: 36px; margin-bottom: 50px; }
+        .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .testimonial-card { background: white; padding: 30px; border-radius: 20px; }
+        .testimonial-text { font-style: italic; color: #666; margin-bottom: 20px; }
+        .testimonial-author { font-weight: bold; color: #0066cc; }
+        
+        /* Footer */
+        footer { background: #333; color: white; padding: 50px 0; text-align: center; }
+        footer p { opacity: 0.7; }
+        
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .product-grid { grid-template-columns: 1fr; }
+            .nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">逆动力</div>
+            <nav class="nav">
+                <a href="#benefits">功效</a>
+                <a href="#product">产品</a>
+                <a href="#testimonials">用户评价</a>
+                <a href="#contact">联系我们</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>氢镁胶囊</h1>
+            <p>中国氢科学研究院成果 | 氢+镁双成分 | 日本进口原料</p>
+            <p>提升能量 · 改善睡眠 · 增强免疫</p>
+            <a href="#product" class="cta-button">立即购买</a>
+        </div>
+    </section>
+
+    <section class="benefits" id="benefits">
+        <div class="container">
+            <h2>核心功效</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">⚡</div>
+                    <h3>提升能量</h3>
+                    <p>氢分子激活细胞能量代谢，快速补充体力，消除疲劳感</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">😴</div>
+                    <h3>改善睡眠</h3>
+                    <p>镁元素调节神经系统，帮助放松身心，提升睡眠质量</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🛡️</div>
+                    <h3>增强免疫</h3>
+                    <p>氢分子抗氧化，减少自由基，增强身体抵抗力</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="product" id="product">
+        <div class="container">
+            <div class="product-grid">
+                <div class="product-image">💊</div>
+                <div class="product-info">
+                    <h2>氢镁胶囊 · 升级版</h2>
+                    <p>中国氢科学研究院潜心研发，融合日本进口原料，采用先进纳米技术，确保活性成分高效吸收。</p>
+                    <ul class="features">
+                        <li>氢分子 + 镁元素 双效合一</li>
+                        <li>日本进口原料，品质保证</li>
+                        <li>纳米技术，吸收率提升3倍</li>
+                        <li>不含激素，无副作用</li>
+                        <li>30天无效果全额退款</li>
+                    </ul>
+                    <div class="price">¥2988 <span>/ 盒（30天量）</span></div>
+                    <a href="#" class="cta-button">立即下单</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2>用户评价</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"吃了2周，感觉精力充沛了很多，晚上也睡得香了！"</p>
+                    <p class="testimonial-author">张先生 · 企业家</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"工作压力大导致失眠，现在好多了，会继续回购。"</p>
+                    <p class="testimonial-author">李女士 · 设计师</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"父母吃了都说好，睡眠质量明显提升。"</p>
+                    <p class="testimonial-author">王先生 · 工程师</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <p>© 2026 逆动力 All Rights Reserved</p>
+            <p>中国氢科学研究院战略合作伙伴</p>
+            <p>声明：本产品为膳食补充剂，不用于诊断、治疗、治愈或预防任何疾病</p>
+        </div>
+    </footer>
+</body>
+</html>
