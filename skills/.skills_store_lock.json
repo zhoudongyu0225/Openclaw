@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "skills": {
+    "tavily-search": {
+      "name": "Tavily Web Search",
+      "zip_url": "http://lightmake.site/api/v1/download?slug=tavily-search",
+      "source": "skillhub",
+      "version": "1.0.0"
+    },
+    "summarize": {
+      "name": "Summarize",
+      "zip_url": "http://lightmake.site/api/v1/download?slug=summarize",
+      "source": "skillhub",
+      "version": "1.0.0"
+    },
+    "agent-browser": {
+      "name": "Agent Browser",
+      "zip_url": "http://lightmake.site/api/v1/download?slug=agent-browser",
+      "source": "skillhub",
+      "version": "0.2.0"
+    },
+    "find-skills": {
+      "name": "Find Skills",
+      "zip_url": "http://lightmake.site/api/v1/download?slug=find-skills",
+      "source": "skillhub",
+      "version": "0.1.0"
+    },
+    "github": {
+      "name": "Github",
+      "zip_url": "http://lightmake.site/api/v1/download?slug=github",
+      "source": "skillhub",
+      "version": "1.0.0"
+    },
+    "obsidian": {
+      "name": "Obsidian",
+      "zip_url": "http://lightmake.site/api/v1/download?slug=obsidian",
+      "source": "skillhub",
+      "version": "1.0.0"
+    },
+    "weather": {
+      "name": "Weather",
+      "zip_url": "http://lightmake.site/api/v1/download?slug=weather",
+      "source": "skillhub",
+      "version": "1.0.0"
+    },
+    "tencentcloud-lighthouse-skill": {
+      "name": "Tencent Cloud Lighthouse",
+      "zip_url": "http://lightmake.site/api/v1/download?slug=tencentcloud-lighthouse-skill",
+      "source": "skillhub",
+      "version": "1.0.0"
+    },
+    "tencent-docs": {
+      "name": "腾讯文档 tencent-docs",
+      "zip_url": "http://lightmake.site/api/v1/download?slug=tencent-docs",
+      "source": "skillhub",
+      "version": "1.0.1"
+    },
+    "tencent-cos-skill": {
+      "name": "Tencent COS",
+      "zip_url": "http://lightmake.site/api/v1/download?slug=tencent-cos-skill",
+      "source": "skillhub",
+      "version": "1.0.5"
+    }
+  }
+}
